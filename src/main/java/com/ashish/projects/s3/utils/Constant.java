@@ -8,4 +8,10 @@ public interface Constant {
 	Integer INACTIVE_STATUS = 0;
 	Integer IS_DELETED = 1;
 	Integer IS_NOT_DELETED = 0;
+
+	interface Headers {
+		String ORGANISATION = "ORGANISATION";
+		String ACCESS_KEY = "ACCESS_KEY";
+		String BUCKET_NAME = "BUCKET_NAME";
+	}
 }
