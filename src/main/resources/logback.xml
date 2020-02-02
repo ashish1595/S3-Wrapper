@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="logSize" value="200MB" />
+	<property name="LOG_FILE_PATH" value="/opt/s3/logs/" />
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>
+				%d [%t] %-5p: %c - %m%n
+			</Pattern>
+		</layout>
+	</appender>
+	<appender name="s3File"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${LOG_FILE_PATH}s3log.log</File>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_FILE_PATH}archive/s3log_%d{ddMMyyyy}_%i.log.gz
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>${logSize}</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>
+				%d [%t] %-5p: %c - %m%n
+			</pattern>
+			<immediateFlush>true</immediateFlush>
+		</encoder>
+	</appender>
+	<root level="info">
+		<appender-ref ref="s3File" />
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>
